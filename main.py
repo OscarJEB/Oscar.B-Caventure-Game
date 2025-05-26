@@ -2,12 +2,11 @@ from cave import Cave
 
 # Creating Cave objects
 cavern = Cave("Cavern")
+cavern.set_description("A dank and dirty cave ")
+dungeon = Cave("Main Dungeon")
+dungeon.set_description("A large cave with a rack")
 grotto = Cave("Grotto")
-dungeon = Cave("Dungeon")
+grotto.set_description("A small cave with ancient graffiti")
+#Creating more cave objects (from sketch)
 
-# Setting a description for the cavern
-cavern.set_description("A damp and dirty cave.")
-
-# Printing the description
-print(cavern.get_description())  # This will print the description
 
