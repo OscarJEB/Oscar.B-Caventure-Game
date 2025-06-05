@@ -36,7 +36,7 @@ class Cave:
             print("You can't go that way")
             return self
 
-    def get_character(self, character):
+    def get_character(self):
         return self.character   
     def set_character(self, character):
         self.character = character
