@@ -1,6 +1,7 @@
 from cave import Cave
 from character import Enemy, Friend
 from character import Character
+from item import Item
 
 # Creating Cave objects
 cavern = Cave("Cavern")
@@ -77,13 +78,30 @@ main_dungeon.link_cave(deep_cavern, "west")
 main_dungeon.link_cave(lair, "east")
 main_dungeon.link_cave(speleothem_cave, "south")
 lair.link_cave(main_dungeon, "west")
-harry = Enemy("Harry", "A smelly Wumpus")
-harry.set_conversation("Hangry…Hanggrry")
-harry.set_weakness("vegemite")
-lair.set_character(harry)
-josephine = Friend("Josie", "A stinky bat")
-josephine.set_conversation("I LOVE SKZ!!!")
-grotto.set_character(josephine)
+#characters
+forrestWump = Enemy("Forrest Wump", "A smelly Wumpus that looks an awful lot like Tom Hanks")
+forrestWump.set_conversation("I'm wumping it")
+forrestWump.set_weakness("boxOfChocolates")
+lair.set_character(forrestWump)
+josie = Friend("Josie", "A stinky bat")
+josie.set_conversation("I LOVE SKZ!!!")
+grotto.set_character(josie)
+creeper = Enemy("A creeper (from Minecraft)")
+creeper.set_conversation("SSSSssssssss")
+creeper.set_weakness("shield")
+#set place for creeper
+#items
+boxOfChocolates = Item("Box of Chocolates")
+boxOfChocolates.set_description("Life's like this.")
+dead_end.set_item(boxOfChocolates)
+torch = Item("torch")
+torch.set_description("The torch is bright, lighting up the tight cave. It's light fills you with determination")
+claustrophobic_tunnel.set_item(torch)
+shield = Item("Shield")
+shield.set_description("A rectangular shield, probably strong enough to withstand an explosion")
+#set place for shield
+bag = []
+
 
 
 current_cave = cave_entrance
@@ -105,14 +123,20 @@ while dead == False:
         if inhabitant is not None and isinstance(inhabitant, Enemy):
             print("What will you fight with?")
             fight_with = input()
-            if inhabitant.fight(fight_with) == True:
-                    print("Bravo, hero you won the fight!")
-                    current_cave.set_character(None)
+            if fight_with in bag:
+                if inhabitant.fight(fight_with) == True:
+                    if Enemy.enemies_to_defeat == 0:
+                        print("Congratulations, you have survived another adventure!")
+                        dead = True
+                    else:
+                        print("Bravo, hero you won the fight!")
+                        current_cave.set_character(None)
+                else:
+                    print("Scurry home, you lost the fight.")
+                    print("That's the end of the game")
+                    dead = True
             else:
-                print("Scurry home, you lost the fight.")
-                print("That's the end of the game")
-                dead = True
-
+                print("You don't have a " + fight_with)
         else:
             print("There is no one here to fight with")
     elif command == "pat":
@@ -123,3 +147,8 @@ while dead == False:
                     inhabitant.pat()
             else:
                 print("There is no one here to pat :(")
+    elif command == "take":
+        if Item is not None:
+            print("You put the " + Item.get_name() + " in your bag")
+            bag.append(Item.get_name())
+            current_cave.set_item(None)

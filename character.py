@@ -1,4 +1,4 @@
-class Character():
+class Character:
     def __init__(self, char_name, char_description):
         self.name = char_name
         self.description = char_description
@@ -28,9 +28,11 @@ class Character():
         return True
     # Add your code here (first line unindented)
 class Enemy(Character):
+    enemies_to_defeat = 0
     def __init__(self, char_name, char_description):
         super().__init__(char_name, char_description)
         self.weakness = None
+        Enemy.enemies_to_defeat = Enemy.enemies_to_defeat + 1
     def get_weakness(self, weakness):
         return self.weakness   
     def set_weakness(self, weakness):
@@ -38,6 +40,7 @@ class Enemy(Character):
     def fight(self, combat_item):
         if combat_item == self.weakness:
             print("You fend " + self.name + " off with the " + combat_item )
+            Enemy.enemies_to_defeat = Enemy.enemies_to_defeat - 1
             return True
         else:
             print(self.name + " swallows you, little wimp")
