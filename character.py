@@ -54,8 +54,3 @@ class Friend(Character):
         self.feeling = None
     def pat(self):
         print(self.name + " pats you back!")
-
-    
-
-
-

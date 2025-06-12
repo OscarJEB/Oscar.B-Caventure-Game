@@ -81,35 +81,44 @@ lair.link_cave(main_dungeon, "west")
 #characters
 forrestWump = Enemy("Forrest Wump", "A smelly Wumpus that looks an awful lot like Tom Hanks")
 forrestWump.set_conversation("I'm wumping it")
-forrestWump.set_weakness("boxOfChocolates")
+forrestWump.set_weakness("box of chocolates")
 lair.set_character(forrestWump)
 josie = Friend("Josie", "A stinky bat")
 josie.set_conversation("I LOVE SKZ!!!")
 grotto.set_character(josie)
-creeper = Enemy("A creeper (from Minecraft)")
+creeper = Enemy("A creeper", "(from Minecraft)")
 creeper.set_conversation("SSSSssssssss")
 creeper.set_weakness("shield")
-#set place for creeper
+deadly_dungeon.set_character(creeper)
+ralsei = Friend("Ralsei", "The friendly prince of Darkworld")
+ralsei.set_conversation("Hey! Have you seen Susie and Kris anywhere? I'm kind of lost...")
+cavern.set_character(ralsei)
+krisAndSusie = Friend("Kris and Susie", "A human and an angry purple monster girl")
+krisAndSusie.set_conversation("Susie says:'Hey, while we wait for Ralsei to catch up lets ax this fool!\n Krisno warns you about her attacks and you get away.")
+deep_cavern.set_character(krisAndSusie)
 #items
-boxOfChocolates = Item("Box of Chocolates")
+boxOfChocolates = Item("box of chocolates")
 boxOfChocolates.set_description("Life's like this.")
 dead_end.set_item(boxOfChocolates)
 torch = Item("torch")
 torch.set_description("The torch is bright, lighting up the tight cave. It's light fills you with determination")
 claustrophobic_tunnel.set_item(torch)
-shield = Item("Shield")
+shield = Item("shield")
 shield.set_description("A rectangular shield, probably strong enough to withstand an explosion")
-#set place for shield
+cavity.set_item(shield)
 bag = []
 
 
 
 current_cave = cave_entrance
 dead = False
-while dead == False:	
-    print("\n")         
+while dead == False:	      
+    print("\n")
     current_cave.get_details()    
     inhabitant = current_cave.get_character()
+    item = current_cave.get_item()
+    if item is not None:
+        item.describe()
     if inhabitant is not None:
         inhabitant.describe()
     command = input("> ")
@@ -148,7 +157,7 @@ while dead == False:
             else:
                 print("There is no one here to pat :(")
     elif command == "take":
-        if Item is not None:
-            print("You put the " + Item.get_name() + " in your bag")
-            bag.append(Item.get_name())
+        if item is not None:
+            print("You put the " + item.get_name() + " in your bag")
+            bag.append(item.get_name())
             current_cave.set_item(None)
